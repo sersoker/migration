@@ -1,12 +1,9 @@
 <?php
-/**
- * This disaster was designed by
- * @author Juan G. Rodríguez Carrión <juan.rodriguez@pccomponentes.com>
- */
 declare(strict_types=1);
-namespace Pccomponentes\Migration\Tests;
 
-use Pccomponentes\Migration\MigrationLoader;
+namespace PcComponentes\Migration\Tests;
+
+use PcComponentes\Migration\MigrationLoader;
 use PHPUnit\Framework\TestCase;
 
 class MigrationLoaderTest extends TestCase
@@ -30,10 +27,11 @@ class MigrationLoaderTest extends TestCase
 
     /**
      * @test
-     * @expectedException \InvalidArgumentException
      */
     public function given_migration_unknow_path_when_load_it_then_throw_exception()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $loader = new MigrationLoader(__DIR__ . '/unknow', []);
         $loader->load(['MigrationTested']);
     }

@@ -1,10 +1,7 @@
 <?php
-/**
- * This disaster was designed by
- * @author Juan G. Rodríguez Carrión <juan.rodriguez@pccomponentes.com>
- */
 declare(strict_types=1);
-namespace Pccomponentes\Migration;
+
+namespace PcComponentes\Migration;
 
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -14,14 +11,15 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 final class MigrationCommand extends Command
 {
-    private $loader;
+    private MigrationLoader $loader;
 
     private const OPERATION_UP = 'up';
-    private const OPERTATION_DOWN = 'down';
+    private const OPERATION_DOWN = 'down';
 
     public function __construct(string $commandName, string $migrationDir, array $migrationArgs)
     {
         parent::__construct("migration:{$commandName}");
+
         $this->loader = new MigrationLoader($migrationDir, $migrationArgs);
     }
 
@@ -33,7 +31,7 @@ final class MigrationCommand extends Command
                 'operation',
                 'op',
                 InputOption::VALUE_REQUIRED,
-                sprintf('Available operations: %s, %s', self::OPERATION_UP, self::OPERTATION_DOWN)
+                sprintf('Available operations: %s, %s', self::OPERATION_UP, self::OPERATION_DOWN)
             )
             ->addArgument(
                 'migrations',
@@ -53,16 +51,16 @@ final class MigrationCommand extends Command
                 case self::OPERATION_UP:
                     $executor->upOperation();
                     return 0;
-                case self::OPERTATION_DOWN:
+                case self::OPERATION_DOWN:
                     $executor->downOperation();
                     return 0;
                 default:
                     $output->writeln(sprintf('<error>Invalid operation %s</error>', $operation));
                     $output->write('<comment>Available operations: </comment>');
-                    $output->writeln(sprintf('<options=bold>%s, %s</>', self::OPERATION_UP, self::OPERTATION_DOWN));
+                    $output->writeln(sprintf('<options=bold>%s, %s</>', self::OPERATION_UP, self::OPERATION_DOWN));
                     return 1;
             }
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             $output->writeln(sprintf('<error>Exception: %s</error>', $e->getMessage()));
             return 1;
         }

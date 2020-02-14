@@ -1,14 +1,11 @@
 <?php
-/**
- * This disaster was designed by
- * @author Juan G. Rodríguez Carrión <juan.rodriguez@pccomponentes.com>
- */
 declare(strict_types=1);
-namespace Pccomponentes\Migration;
+
+namespace PcComponentes\Migration;
 
 final class MigrationExecutor
 {
-    private $migrations;
+    private array $migrations;
 
     public function __construct(array $migrations)
     {
@@ -24,7 +21,7 @@ final class MigrationExecutor
     {
         \array_walk(
             $this->migrations,
-            function (Migration $migration) {
+            static function (Migration $migration) {
                 $migration->upOperation();
             }
         );
@@ -34,7 +31,7 @@ final class MigrationExecutor
     {
         \array_walk(
             $this->migrations,
-            function (Migration $migration) {
+            static function (Migration $migration) {
                 $migration->downOperation();
             }
         );
