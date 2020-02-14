@@ -1,17 +1,13 @@
 <?php
-/**
- * This disaster was designed by
- * @author Juan G. Rodríguez Carrión <juan.rodriguez@pccomponentes.com>
- */
 declare(strict_types=1);
 
-use Pccomponentes\Migration\Migration;
+use PcComponentes\Migration\Migration;
 
 class MigrationTested implements Migration
 {
-    private $constructorArgs;
-    private $upOperationCalled;
-    private $downOperationCalled;
+    private array $constructorArgs;
+    private bool $upOperationCalled;
+    private bool $downOperationCalled;
 
     public function __construct()
     {

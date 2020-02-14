@@ -1,19 +1,16 @@
 <?php
-/**
- * This disaster was designed by
- * @author Juan G. Rodríguez Carrión <juan.rodriguez@pccomponentes.com>
- */
 declare(strict_types=1);
-namespace Pccomponentes\Migration\Tests;
 
-use Pccomponentes\Migration\MigrationExecutor;
+namespace PcComponentes\Migration\Tests;
+
+use PcComponentes\Migration\MigrationExecutor;
 use PHPUnit\Framework\TestCase;
 
 class MigrationExecutorTest extends TestCase
 {
     private const DIR = __DIR__ . '/../migration';
 
-    public function setUp()
+    public function setUp(): void
     {
         include_once self::DIR . '/MigrationTested.php';
     }

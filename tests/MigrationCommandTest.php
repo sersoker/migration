@@ -1,12 +1,9 @@
 <?php
-/**
- * This disaster was designed by
- * @author Juan G. Rodríguez Carrión <juan.rodriguez@pccomponentes.com>
- */
 declare(strict_types=1);
-namespace Pccomponentes\Migration\Tests;
 
-use Pccomponentes\Migration\MigrationCommand;
+namespace PcComponentes\Migration\Tests;
+
+use PcComponentes\Migration\MigrationCommand;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Tester\CommandTester;
 
@@ -14,10 +11,10 @@ class MigrationCommandTest extends TestCase
 {
     private const DIR = __DIR__ . '/../migration';
 
-    private $command;
-    private $tester;
+    private MigrationCommand $command;
+    private CommandTester $tester;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->command = new MigrationCommand('test', self::DIR, []);
         $this->tester = new CommandTester($this->command);
@@ -31,7 +28,7 @@ class MigrationCommandTest extends TestCase
         $this->tester->execute(
             [
                 'migrations' => ['MigrationTested'],
-                '--operation' => 'down'
+                '--operation' => 'down',
             ]
         );
 
@@ -46,7 +43,7 @@ class MigrationCommandTest extends TestCase
         $this->tester->execute(
             [
                 'migrations' => ['Unkonw'],
-                '--operation' => 'down'
+                '--operation' => 'down',
             ]
         );
 
@@ -61,7 +58,7 @@ class MigrationCommandTest extends TestCase
         $this->tester->execute(
             [
                 'migrations' => ['MigrationTested'],
-                '--operation' => 'unkonw'
+                '--operation' => 'unkonw',
             ]
         );
 

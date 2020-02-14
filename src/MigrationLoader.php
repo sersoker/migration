@@ -1,15 +1,12 @@
 <?php
-/**
- * This disaster was designed by
- * @author Juan G. Rodríguez Carrión <juan.rodriguez@pccomponentes.com>
- */
 declare(strict_types=1);
-namespace Pccomponentes\Migration;
+
+namespace PcComponentes\Migration;
 
 final class MigrationLoader
 {
-    private $dir;
-    private $migrationArgs;
+    private string $dir;
+    private array $migrationArgs;
 
     public function __construct(string $dir, array $migrationArgs)
     {
@@ -19,10 +16,12 @@ final class MigrationLoader
 
     public function load(array $migrationClassNames)
     {
-        return \array_map(
-            [$this, 'loadOne'],
-            $migrationClassNames
-        );
+        $migrations = [];
+        foreach ($migrationClassNames as $migrationClassName) {
+            $migrations[] = $this->loadOne($migrationClassName);
+        }
+
+        return $migrations;
     }
 
     private function loadOne(string $className): Migration
@@ -36,6 +35,7 @@ final class MigrationLoader
         }
 
         require_once $classFile;
+
         return (new \ReflectionClass($className))->newInstanceArgs($this->migrationArgs);
     }
 }
